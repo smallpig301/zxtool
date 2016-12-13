@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>canvas</title>
+<script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    $(function() {
+      
+        var canTest = $("#J_test")[0];
+        canTest.width = 1024;
+        canTest.height = 500;
+        var content = canTest.getContext('2d');
+     
+        function drawLine(){
+            content.beginPath();
+            content.lineWidth = 10;
+            content.strokeStyle = "#ccc";
+            content.arc(100,100,90,0,2*Math.PI);        
+            content.closePath();
+            content.stroke(); 
+        }
+
+        var i = 0;
+        fill(i);
+        function fill(i) {
+            drawLine();
+            draw(i);
+            fillText(i);
+            if(i < 100){
+                setTimeout(function(){
+                    clearFill();
+                    fill(i)
+                },100)
+            }
+            i++;
+        };
+       
+        function draw(i) {
+            content.beginPath();
+            content.lineWidth = 10;
+            content.strokeStyle = "#f00";
+            content.arc(100, 100, 90, -90 * Math.PI / 180, (i * 3.6 - 90) * Math.PI / 180);     
+            content.stroke();
+        }
+
+        function fillText(i) {
+           content.font = '18px Arial'; 
+           content.fillStyle = "#f00";
+           content.textBaseline = "middle";
+           content.textAlign = "center";
+           content.fillText(i.toFixed(1)+'%',100,100)
+        }
+
+        function clearFill() {
+            content.clearRect(0, 0, 200, 200);
+        }
+    });
+</script>
+</head>
+
+<body>
+    <canvas id="J_test">
+        
+    </canvas>
+</body>
+
+</html>
